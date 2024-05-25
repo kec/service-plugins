@@ -5,7 +5,7 @@ import dev.ikm.tinkar.plugin.service.boot.internal.PluginLifecycleListenerLogger
 
 module dev.ikm.tinkar.plugin.service.boot {
     exports dev.ikm.tinkar.plugin.service.boot;
-    requires dev.ikm.directory.watcher;
+    requires dev.ikm.jpms.directory.watcher;
     requires org.slf4j;
 
     uses PluggableServiceLoader;

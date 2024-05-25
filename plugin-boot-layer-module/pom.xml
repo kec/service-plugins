@@ -12,7 +12,7 @@
     <artifactId>plugin-boot-layer-module</artifactId>
 
     <properties>
-        <directory.watcher.version>0.18.0</directory.watcher.version>
+        <directory.watcher.version>0.18.0-r4</directory.watcher.version>
     </properties>
 
     <dependencies>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>dev.ikm.jpms</groupId>
             <artifactId>directory-watcher</artifactId>
-            <version>${directory.watcher.version}-r1-SNAPSHOT</version>
+            <version>${directory.watcher.version}</version>
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
