@@ -84,18 +84,43 @@
                 <version>0.0.8</version>
                 <executions>
                     <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
+                        <!-- Default configuration for running -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>
-                                dev.ikm.tinkar.serviceplugins.demo/dev.ikm.tinkar.serviceplugins.demo.HelloApplication
-                            </mainClass>
-                            <launcher>app</launcher>
-                            <jlinkZipName>app</jlinkZipName>
-                            <jlinkImageName>app</jlinkImageName>
-                            <noManPages>true</noManPages>
-                            <stripDebug>true</stripDebug>
-                            <noHeaderFiles>true</noHeaderFiles>
+                            <mainClass>dev.ikm.tinkar.serviceplugins.demo/dev.ikm.tinkar.serviceplugins.demo.HelloApplication</mainClass>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- Configuration for debugging -->
+                        <id>debug</id>
+                        <configuration>
+                            <options>
+                                <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000</option>
+                            </options>
+                            <mainClass>dev.ikm.tinkar.serviceplugins.demo/dev.ikm.tinkar.serviceplugins.demo.HelloApplication</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>sources</id>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>dev.ikm.tinkar.service-plugins</groupId>
+                                    <artifactId>plugin-service-loader-module</artifactId>
+                                    <version>${project.parent.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${build.directory}/plugin-service-loader</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

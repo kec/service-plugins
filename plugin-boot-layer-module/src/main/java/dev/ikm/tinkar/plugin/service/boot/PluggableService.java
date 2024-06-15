@@ -20,9 +20,9 @@ import dev.ikm.tinkar.plugin.service.boot.internal.PluginWatchDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -37,6 +37,10 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class PluggableService {
     private static final Logger LOG = LoggerFactory.getLogger(PluggableService.class);
+
+    public static final String PATH_KEY = "dev.ikm.tinkar.plugin.service.boot.PluggableService.PATH_KEY";
+    public static final String ARTIFACT_KEY = "dev.ikm.tinkar.plugin.service.boot.PluggableService.ARTIFACT_KEY";
+    private static final String DefaultPluggableServiceLoaderArtifactId = "plugin-service-loader-module";
 
     private static PluggableServiceLoader pluggableServiceLoader;
 
@@ -58,9 +62,41 @@ public class PluggableService {
         deployPluginServiceLoader(List.of(ModuleLayer.boot()));
     }
 
+    public static Optional<String> findPluggableServiceLoaderJar(File dirPath, String artifactKey){
+        File filesList[] = dirPath.listFiles();
+        for(File file : filesList) {
+            if(file.isFile()) {
+                if (file.getName().endsWith(".jar") && file.getName().startsWith(artifactKey)) {
+                    return Optional.of(file.getAbsolutePath());
+                }
+            } else {
+                Optional<String> optionalPluggableServiceLoaderJar = findPluggableServiceLoaderJar(file,artifactKey);
+                if (optionalPluggableServiceLoaderJar.isPresent()) {
+                    return optionalPluggableServiceLoaderJar;
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
     public static void deployPluginServiceLoader(List<ModuleLayer> parentLayers) {
+        if (System.getProperty(PATH_KEY) == null) {
+            String artifactKey = System.getProperty(ARTIFACT_KEY, DefaultPluggableServiceLoaderArtifactId);
+
+            findPluggableServiceLoaderJar(new File(System.getProperty("user.dir")),
+                    artifactKey).ifPresentOrElse(pluggableServiceLoaderJar -> {
+                        System.setProperty(PATH_KEY, pluggableServiceLoaderJar);
+                        LOG.info("Found pluggable service loader jar: {}", pluggableServiceLoaderJar);
+                    },
+                    () -> {throw new RuntimeException("No pluggable service loader found. \n" +
+                            "Ensure that PATH_KEY and ARTIFACT_KEY system properties are provided,\n" +
+                            "or that a pluggable service provider .jar file is provided at a discoverable location.\n\n"
+                    );});
+        }
+        String pluginServiceLoaderPath = System.getProperty(PATH_KEY);
+
         ModuleLayer pluginServiceLoaderLayer = Layers.createModuleLayer(parentLayers,
-                List.of(Path.of("/Users/kec/ikm-dev/plugin-architecture/service-plugins/plugin-service-loader-module/target/plugin-service-loader-module-1.0-SNAPSHOT.jar")));
+                List.of(Path.of(pluginServiceLoaderPath)));
         ServiceLoader<PluggableServiceLoader> pluggableServiceLoaderLoader =
                 ServiceLoader.load(pluginServiceLoaderLayer, PluggableServiceLoader.class);
         Optional<PluggableServiceLoader> pluggableServiceLoaderOptional = pluggableServiceLoaderLoader.findFirst();

@@ -29,7 +29,7 @@ public class HelloApplication extends Application {
         // setup plugin directory.
         LOG.info("Application working directory: " + System.getProperties().getProperty("user.dir"));
         Path workingPath = Path.of(System.getProperties().getProperty("user.dir"));
-        Path pluginPath = workingPath.resolve(Path.of("plugin-demo-application/target/plugins"));
+        Path pluginPath = workingPath.resolve(Path.of("target/plugins"));
         pluginPath.toFile().mkdirs();
         LOG.info("Plugin directory: " + pluginPath.toAbsolutePath());
         PluggableService.setPluginDirectory(pluginPath);
