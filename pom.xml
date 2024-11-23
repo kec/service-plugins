@@ -23,6 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <featureSquash>true</featureSquash>
         <processAllModules>true</processAllModules>
+        <revision>1.0-IKM-23-SNAPSHOT</revision>
     </properties>
 
 
