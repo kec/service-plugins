@@ -21,6 +21,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <featureSquash>true</featureSquash>
     </properties>
 
 
@@ -57,7 +58,6 @@
                         <releaseBranchPrefix></releaseBranchPrefix>
                         <versionTagPrefix></versionTagPrefix>
                         <origin>origin</origin>
-                        <featureSquash>true</featureSquash>
                     </gitFlowConfig>
                     <commitMessages>
                         <featureStartMessage>gitflow: Update versions for feature branch</featureStartMessage>
