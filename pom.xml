@@ -6,7 +6,7 @@
 
     <groupId>dev.ikm.tinkar.service-plugins</groupId>
     <artifactId>service-plugins</artifactId>
-    <version>${revision}</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>plugin-boot-layer-module</module>
@@ -23,7 +23,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <featureSquash>true</featureSquash>
         <processAllModules>true</processAllModules>
-        <revision>1.0.0-SNAPSHOT</revision>
     </properties>
 
 
