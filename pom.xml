@@ -23,6 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -38,5 +39,75 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>1.21.0</version>
+                <configuration>
+                    <featureNamePattern>^(?!(((feature|hotfix|bugfix))\/(IKM|AR|IAT|IC|IKMC|IKDT|IKMD|IIA|IKMW|IKMM|TE)-\d+(-[0-9A-Za-z\-]*)*)|main|prod|master|dev).*$</featureNamePattern>
+                    <releaseVersion>FAIL-SNAPSHOT</releaseVersion>
+                    <gitFlowConfig>
+                        <developmentBranch>main</developmentBranch>
+                        <productionBranch>main</productionBranch>
+                        <featureBranchPrefix>feature/</featureBranchPrefix>
+                        <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+                        <supportBranchPrefix>support/</supportBranchPrefix>
+                        <releaseBranchPrefix></releaseBranchPrefix>
+                        <versionTagPrefix></versionTagPrefix>
+                        <origin>origin</origin>
+                    </gitFlowConfig>
+                    <commitMessages>
+                        <featureStartMessage>gitflow: Update versions for feature branch</featureStartMessage>
+                        <featureFinishMessage>gitflow: Update versions for development branch</featureFinishMessage>
 
+                        <hotfixStartMessage>gitflow: Update versions for hotfix</hotfixStartMessage>
+                        <hotfixFinishMessage>gitflow: Update for next development version</hotfixFinishMessage>
+
+                        <hotfixVersionUpdateMessage>gitflow: Update to hotfix version</hotfixVersionUpdateMessage>
+
+                        <releaseStartMessage>gitflow: Update versions for release</releaseStartMessage>
+                        <releaseFinishMessage>gitflow: Update for next development version</releaseFinishMessage>
+
+                        <releaseVersionUpdateMessage>gitflow: Update for next development version</releaseVersionUpdateMessage>
+
+                        <!-- git merge messages -->
+                        <!-- Default git merge commit message will be used if left empty or undefined. -->
+
+                        <releaseFinishMergeMessage></releaseFinishMergeMessage>
+                        <releaseFinishDevMergeMessage></releaseFinishDevMergeMessage>
+
+                        <featureFinishDevMergeMessage></featureFinishDevMergeMessage>
+                        <featureSquashMessage></featureSquashMessage>
+
+                        <hotfixFinishMergeMessage></hotfixFinishMergeMessage>
+                        <hotfixFinishDevMergeMessage></hotfixFinishDevMergeMessage>
+                        <hotfixFinishReleaseMergeMessage></hotfixFinishReleaseMergeMessage>
+                        <hotfixFinishSupportMergeMessage></hotfixFinishSupportMergeMessage>
+
+                        <!-- / git merge messages -->
+
+                        <tagHotfixMessage>gitflow: Tag hotfix</tagHotfixMessage>
+                        <tagReleaseMessage>gitflow: Tag release</tagReleaseMessage>
+                        <tagVersionUpdateMessage>gitflow: Tag version update</tagVersionUpdateMessage>
+
+                        <!-- Migration Note: This was called <updateDevToAvoidConflitsMessage> in version 1.11.0, but has been deprecated in favour of the correctly spelt one below. -->
+                        <updateDevToAvoidConflictsMessage>gitflow: Update develop to production version to avoid merge conflicts</updateDevToAvoidConflictsMessage>
+                        <updateDevBackPreMergeStateMessage>gitflow: Update develop version back to pre-merge state</updateDevBackPreMergeStateMessage>
+
+                        <updateReleaseToAvoidConflictsMessage>gitflow: Update release to hotfix version to avoid merge conflicts</updateReleaseToAvoidConflictsMessage>
+                        <updateReleaseBackPreMergeStateMessage>gitflow: Update release version back to pre-merge state</updateReleaseBackPreMergeStateMessage>
+
+                        <updateFeatureBackMessage>gitflow: Update feature branch back to feature version</updateFeatureBackMessage>
+                        <featureFinishIncrementVersionMessage>gitflow: Increment feature version</featureFinishIncrementVersionMessage>
+
+                        <supportStartMessage>gitflow: Update versions for support branch</supportStartMessage>
+
+                        <versionUpdateMessage>gitflow: Update versions</versionUpdateMessage>
+                    </commitMessages>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
