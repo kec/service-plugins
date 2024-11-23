@@ -6,7 +6,7 @@
     <parent>
         <groupId>dev.ikm.tinkar.service-plugins</groupId>
         <artifactId>service-plugins</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0-IKM-1234-SNAPSHOT</version>
     </parent>
 
     <artifactId>plugin-demo-application</artifactId>
