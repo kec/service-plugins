@@ -57,6 +57,7 @@
                         <releaseBranchPrefix></releaseBranchPrefix>
                         <versionTagPrefix></versionTagPrefix>
                         <origin>origin</origin>
+                        <featureSquash>true</featureSquash>
                     </gitFlowConfig>
                     <commitMessages>
                         <featureStartMessage>gitflow: Update versions for feature branch</featureStartMessage>
